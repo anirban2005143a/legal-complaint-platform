@@ -1,0 +1,86 @@
+[
+{
+    "query_number": 1,
+    "llm_response": [
+        "Section 122 of The Registration Act, 1908",
+        "Section 31A of The Indian Registration Act, 1908",
+        "Section 31B of The Indian Registration Act, 1908",
+        "Section 59 of The Indian Registration Act, 1908",
+        "Section 17A of The Specific Relief Act, 1963",
+        "Section 17 of The Limitation Act, 1963"
+    ],
+    "bns_converted_response": [
+        "Section 122 of The Registration Act, 1908",
+        "Section 31A of The Indian Registration Act, 1908",
+        "Section 31B of The Indian Registration Act, 1908",
+        "Section 59 of The Indian Registration Act, 1908",
+        "Section 17A of The Specific Relief Act, 1963",
+        "Section 17 of The Limitation Act, 1963"
+    ]
+},
+{
+    "query_number": 2,
+    "llm_response": [
+        "Section 11 of The Special Marriage Act, 1954",
+        "Section 18 of The Special Marriage Act, 1954",
+        "Section 22 of The Special Marriage Act, 1954",
+        "Section 28 of The Special Marriage Act, 1954",
+        "Section 29 of The Special Marriage Act, 1954",
+        "Section 32 of The Special Marriage Act, 1954",
+        "Section 35 of The Special Marriage Act, 1954",
+        "Section 52 of The Dissolution of Muslim Marriages Act, 1939",
+        "Section 15 of The Hindu Marriage Act, 1955",
+        "Section 13 of The Hindu Marriage Act, 1955",
+        "Chapter 9 of The Code of Civil Procedure, 1908, as amended",
+        "Section 37 of The Code of Civil Procedure, 1908, as amended",
+        "Section 2(4) of The Foreign Marriage Act, 1969",
+        "Section 3 of The Foreign Marriage Act, 1969",
+        "Section 5 of The Foreign Affairs (Grounds for Refusal of Passports) Regulations, 1980",
+        "Section 498A of The Indian Penal Code, 1860",
+        "Section 417 of The Indian Penal Code, 1860"
+    ],
+    "bns_converted_response": [
+        "Section 11 of The Special Marriage Act, 1954",
+        "Section 18 of The Special Marriage Act, 1954",
+        "Section 22 of The Special Marriage Act, 1954",
+        "Section 28 of The Special Marriage Act, 1954",
+        "Section 29 of The Special Marriage Act, 1954",
+        "Section 32 of The Special Marriage Act, 1954",
+        "Section 35 of The Special Marriage Act, 1954",
+        "Section 52 of The Dissolution of Muslim Marriages Act, 1939",
+        "Section 15 of The Hindu Marriage Act, 1955",
+        "Section 13 of The Hindu Marriage Act, 1955",
+        "Chapter 9 of The Code of Civil Procedure, 1908, as amended",
+        "Section 37 of The Code of Civil Procedure, 1908, as amended",
+        "Section 2(4) of The Foreign Marriage Act, 1969",
+        "Section 3 of The Foreign Marriage Act, 1969",
+        "Section 5 of The Foreign Affairs (Grounds for Refusal of Passports) Regulations, 1980",
+        "Section 85 of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 318(2) of The Bharatiya Nyaya Sanhita, 2023"
+    ]
+},
+{
+    "query_number": 3,
+    "llm_response": [
+        "Section 405 of The Criminal Procedure Code, 1973",
+        "Section 406 of The Code of Criminal Procedure, 1973",
+        "Section 463 of The Indian Penal Code, 1860",
+        "Section 471 of The Indian Penal Code, 1860",
+        "Section 504 of The Indian Penal Code, 1860",
+        "Section 34 of The Indian Penal Code, 1860",
+        "Section 120B of The Indian Penal Code, 1860",
+        "Section 195 of The Code of Criminal Procedure, 1973",
+        "Section 199 of The Code of Criminal Procedure, 1973"
+    ],
+    "bns_converted_response": [
+        "Section 405 of The Criminal Procedure Code, 1973",
+        "Section 406 of The Code of Criminal Procedure, 1973",
+        "Section 336(1) of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 340(2) of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 352 of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 3(5) of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 61(2) of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 195 of The Code of Criminal Procedure, 1973",
+        "Section 199 of The Code of Criminal Procedure, 1973"
+    ]
+}

@@ -1,0 +1,369 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Legal Complaint Portal</title>
+    <link rel="stylesheet" href="{% static 'user/css/styles.css' %}" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="emblem">
+        <img
+          src="http://photos.wikimapia.org/p/00/00/35/85/92_big.jpg"
+          alt="Govt Emblem"
+        />
+        <h1>IIT Kharagpur</h1>
+      </div>
+      <div class="title">
+        <h1>Legal Complaint Analyzer</h1>
+        <h1>कानूनी शिकायत विश्लेषक</h1>
+      </div>
+    </div>
+
+    <!-- Initial single column layout -->
+    <div class="container" id="initial-container">
+      <form id="uploadForm">
+        <div class="section">
+          <label for="language">Choose Language:</label>
+          <select id="language" name="language">
+            <option value="">-- Select Language --</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+
+        <div class="nav-btns">
+          <button type="button" onclick="showInput('text')" id="btn-text">
+            TEXT
+          </button>
+          <button type="button" onclick="showInput('pdf')" id="btn-pdf">
+            PDF
+          </button>
+          <button type="button" onclick="showInput('doc')" id="btn-doc">
+            DOC
+          </button>
+        </div>
+
+        <div id="text-input" class="input-section">
+          <label>Put your complaint text here:</label><br />
+          <textarea
+            id="textInput"
+            name="text"
+            rows="10"
+            placeholder="Type your complaint here..."
+          ></textarea>
+        </div>
+
+        <div id="pdf-input" class="input-section">
+          <label>Upload PDF:</label><br />
+          <input type="file" id="pdfUpload" name="pdf" accept=".pdf" />
+        </div>
+
+        <div id="doc-input" class="input-section">
+          <label>Upload Document:</label><br />
+          <input type="file" id="docUpload" name="doc" accept=".doc,.docx" />
+        </div>
+
+        <p id="error-msg"></p>
+        <button type="submit" class="submit-btn">Submit Complaint</button>
+      </form>
+    </div>
+
+    <!-- Two column layout after submission -->
+    <div class="two-column hidden" id="two-column-container">
+      <div class="form-section">
+        <form id="uploadForm2">
+          <div class="section">
+            <label for="language2">Choose Language:</label>
+            <select id="language2" name="language">
+              <option value="">-- Select Language --</option>
+              <option value="en">English</option>
+              <option value="hi">Hindi</option>
+              <option value="bn">Bengali</option>
+              <option value="te">Telugu</option>
+              <option value="ta">Tamil</option>
+              <option value="kn">Kannada</option>
+            </select>
+          </div>
+
+          <div class="nav-btns">
+            <button type="button" onclick="showInput2('text')" id="btn-text2">
+              TEXT
+            </button>
+            <button type="button" onclick="showInput2('pdf')" id="btn-pdf2">
+              PDF
+            </button>
+            <button type="button" onclick="showInput2('doc')" id="btn-doc2">
+              DOC
+            </button>
+          </div>
+
+          <div id="text-input2" class="input-section">
+            <label>Put your complaint text here:</label><br />
+            <textarea
+              id="textInput2"
+              name="text"
+              rows="10"
+              placeholder="Type your complaint here..."
+            ></textarea>
+          </div>
+
+          <div id="pdf-input2" class="input-section">
+            <label>Upload PDF:</label><br />
+            <input type="file" id="pdfUpload2" name="pdf" accept=".pdf" />
+          </div>
+
+          <div id="doc-input2" class="input-section">
+            <label>Upload Document:</label><br />
+            <input type="file" id="docUpload2" name="doc" accept=".doc,.docx" />
+          </div>
+
+          <p id="error-msg2"></p>
+          <button type="submit" class="submit-btn">Submit Complaint</button>
+        </form>
+      </div>
+
+      <div class="results-section">
+        <div class="results-header">
+          <h2>Relevant Acts/Sections</h2>
+        </div>
+        <div id="server-response"></div>
+      </div>
+    </div>
+
+    <script>
+      let selected = null;
+      let selected2 = null;
+
+      function showInput(type) {
+        selected = type;
+        document
+          .querySelectorAll(".input-section")
+          .forEach((el) => (el.style.display = "none"));
+        document.getElementById(`${type}-input`).style.display = "block";
+        document.getElementById("error-msg").textContent = "";
+
+        ["text", "pdf", "doc"].forEach((btn) => {
+          document.getElementById(`btn-${btn}`).classList.remove("active");
+        });
+        document.getElementById(`btn-${type}`).classList.add("active");
+      }
+
+      function showInput2(type) {
+        selected2 = type;
+        ["text-input2", "pdf-input2", "doc-input2"].forEach((id) => {
+          document.getElementById(id).style.display = "none";
+        });
+        document.getElementById(`${type}-input2`).style.display = "block";
+        document.getElementById("error-msg2").textContent = "";
+
+        ["text2", "pdf2", "doc2"].forEach((btn) => {
+          document.getElementById(`btn-${btn}`).classList.remove("active");
+        });
+        document.getElementById(`btn-${type}2`).classList.add("active");
+      }
+
+      function copyFormData() {
+        // Copy language selection
+        const lang1 = document.getElementById("language").value;
+        document.getElementById("language2").value = lang1;
+
+        // Copy input type and data
+        if (selected === "text") {
+          const text = document.getElementById("textInput").value;
+          document.getElementById("textInput2").value = text;
+          showInput2("text");
+        } else if (selected === "pdf") {
+          // Note: File inputs can't be programmatically set for security reasons
+          showInput2("pdf");
+        } else if (selected === "doc") {
+          // Note: File inputs can't be programmatically set for security reasons
+          showInput2("doc");
+        }
+      }
+
+      async function processForm(formData) {
+        try {
+          const response = await fetch("/process/", {
+            method: "POST",
+            body: formData,
+          });
+          const result = await response.json();
+          console.log(result)
+          const resultDiv = document.getElementById("server-response");
+          resultDiv.innerHTML = "";
+
+          function findKey(obj, key) {
+            const seen = new WeakSet();
+            function recurse(o) {
+              if (!o || typeof o !== "object") return null;
+              if (seen.has(o)) return null;
+              seen.add(o);
+              if (
+                Object.prototype.hasOwnProperty.call(o, key) &&
+                Array.isArray(o[key])
+              ) {
+                return o[key];
+              }
+              for (const k in o) {
+                const r = recurse(o[k]);
+                if (r) return r;
+              }
+              return null;
+            }
+            return recurse(obj);
+          }
+
+          const sections = findKey(result, "bns_converted_response");
+          const infos = findKey(result, "section_info");
+
+          console.log(sections);
+          console.log(infos);
+
+          if (sections && sections.length) {
+            const container = document.createElement("div");
+            container.className = "bns-card";
+
+            const ul = document.createElement("ul");
+            ul.className = "bns-list";
+
+            sections.forEach((sec, i) => {
+              const li = document.createElement("li");
+              const secText =
+                typeof sec === "string" ? sec : JSON.stringify(sec);
+
+              const hasValidLink =
+                infos &&
+                infos[i] &&
+                infos[i] !== "no li" &&
+                infos[i] !== "https://indiankanoon.org/" &&
+                infos[i].startsWith("http");
+
+              li.innerHTML = `
+                            ${
+                              hasValidLink
+                                ? `<a href="${infos[i]}" target="_blank">${secText}</a>`
+                                : `<span class="sec-text">${secText}</span>`
+                            }
+                        `;
+
+              if (!hasValidLink) {
+                li.classList.add("no-hover");
+              }
+
+              ul.appendChild(li);
+            });
+
+            container.appendChild(ul);
+            resultDiv.appendChild(container);
+          } else {
+            resultDiv.innerHTML = `<div class="bns-card"><span class="bns-empty">No relevant sections found in server response.</span></div>`;
+            console.log("Server response (full):", result);
+          }
+        } catch (error) {
+          const resultDiv = document.getElementById("server-response");
+          resultDiv.innerHTML = `<div class="bns-card"><span style="color:#f87171;">Error submitting form. Please try again.</span></div>`;
+          console.error(error);
+        }
+      }
+
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const lang = document.getElementById("language").value;
+          const text = document.getElementById("textInput").value.trim();
+          const pdf = document.getElementById("pdfUpload").files[0];
+          const doc = document.getElementById("docUpload").files[0];
+
+          if (
+            !selected ||
+            (selected === "text" && text === "") ||
+            (selected === "pdf" && !pdf) ||
+            (selected === "doc" && !doc)
+          ) {
+            document.getElementById("error-msg").textContent =
+              "No input provided!";
+            return;
+          }
+
+          if (!lang) {
+            document.getElementById("error-msg").textContent =
+              "Please select a language!";
+            return;
+          }
+
+          const formData = new FormData();
+          formData.append("language", lang);
+
+          if (selected === "text") formData.append("text", text);
+          if (selected === "pdf") formData.append("pdf", pdf);
+          if (selected === "doc") formData.append("doc", doc);
+
+          // Switch to two-column layout
+          document.getElementById("initial-container").classList.add("hidden");
+          document
+            .getElementById("two-column-container")
+            .classList.remove("hidden");
+
+          copyFormData();
+
+          document.getElementById(
+            "server-response"
+          ).innerHTML = `<div class="loader"></div>`;
+
+          if (window.innerWidth <= 1200) {
+            document
+              .getElementById("two-column-container")
+              .scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+
+          await processForm(formData);
+        });
+
+      document
+        .getElementById("uploadForm2")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const lang = document.getElementById("language2").value;
+          const text = document.getElementById("textInput2").value.trim();
+          const pdf = document.getElementById("pdfUpload2").files[0];
+          const doc = document.getElementById("docUpload2").files[0];
+
+          if (
+            !selected2 ||
+            (selected2 === "text" && text === "") ||
+            (selected2 === "pdf" && !pdf) ||
+            (selected2 === "doc" && !doc)
+          ) {
+            document.getElementById("error-msg2").textContent =
+              "No input provided!";
+            return;
+          }
+
+          if (!lang) {
+            document.getElementById("error-msg2").textContent =
+              "Please select a language!";
+            return;
+          }
+
+          const formData = new FormData();
+          formData.append("language", lang);
+
+          if (selected2 === "text") formData.append("text", text);
+          if (selected2 === "pdf") formData.append("pdf", pdf);
+          if (selected2 === "doc") formData.append("doc", doc);
+
+          // Show loading state
+          document.getElementById(
+            "server-response"
+          ).innerHTML = `<div class="loader"></div>`;
+
+          await processForm(formData);
+        });
+    </script>
+  </body>
+</html>

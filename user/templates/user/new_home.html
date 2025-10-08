@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Legal Complaint Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #111827;
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #1f2937;
+            border-bottom: 2px solid #374151;
+        }
+
+        .emblem {
+            display: flex;
+            align-items: center;
+        }
+
+        .emblem img {
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        .title h1, .title h3 {
+            margin: 0;
+            text-align: right;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #1f2937;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        select, textarea, input[type="file"] {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .nav-btns {
+            display: flex;
+            justify-content: left;
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .nav-btns button {
+            width: 100px;
+            height: 40px;
+            border-radius: 4px;
+            background: #111827;
+            color: #9ca3af;
+            font-weight: bold;
+            border: 2px solid #4b5563;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btns button.active {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+        }
+
+        .input-section {
+            font-size: 18px;
+            display: none;
+            margin-top: 10px;
+        }
+
+        .submit-btn {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #2563eb;
+            font-weight: bold;
+            font-size: 18px;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .key { color: #9cdcfe; }
+        .string { color: #ce9178; }
+        .number { color: #b5cea8; }
+        .boolean { color: #569cd6; }
+        .null { color: #dcdcaa; }
+
+        #error-msg {
+            color: #f87171;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .sec-text {
+            cursor: default; 
+        }
+
+        .loader {
+            border: 4px solid #1f2937;
+            border-top: 4px solid #38bdf8;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            animation: spin 1s linear infinite;
+            margin: 12px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="emblem">
+            <img src="http://photos.wikimapia.org/p/00/00/35/85/92_big.jpg" alt="Govt Emblem">
+            <h1>IIT Kharagpur</h1>
+        </div>
+        <div class="title">
+            <h1>Legal Complaint Analyzer</h1>
+            <h1>कानूनी शिकायत विश्लेषक</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <form id="uploadForm">
+            <div class="section">
+                <label for="language">Choose Language:</label>
+                <select id="language" name="language">
+                    <option value="">-- Select Language --</option>
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="bn">Bengali</option>
+                    <option value="te">Telugu</option>
+                    <option value="ta">Tamil</option>
+                    <option value="kn">Kannada</option>
+                </select>
+            </div>
+
+            <div class="nav-btns">
+                <button type="button" onclick="showInput('text')" id="btn-text">TEXT</button>
+                <button type="button" onclick="showInput('pdf')" id="btn-pdf">PDF</button>
+                <button type="button" onclick="showInput('doc')" id="btn-doc">DOC</button>
+            </div>
+
+            <div id="text-input" class="input-section">
+                <label>Put your complaint text here:</label><br>
+                <textarea id="textInput" name="text" rows="10" placeholder="Type your complaint here..."></textarea>
+            </div>
+
+            <div id="pdf-input" class="input-section">
+                <label>Upload PDF:</label><br>
+                <input type="file" id="pdfUpload" name="pdf" accept=".pdf">
+            </div>
+
+            <div id="doc-input" class="input-section">
+                <label>Upload Document:</label><br>
+                <input type="file" id="docUpload" name="doc" accept=".doc,.docx">
+            </div>
+
+            <p id="error-msg"></p>
+            <button type="submit" class="submit-btn">Submit Complaint</button>
+        </form>
+
+        <div id="server-response"
+            style="margin-top:50px; padding:10px; border:1px solid #ccc; border-radius:5px; display:none; background-color:#f9f9f9;">
+        </div>
+    </div>
+
+    <script>
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                let cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        let selected = null;
+
+        function showInput(type) {
+            selected = type;
+            document.querySelectorAll('.input-section').forEach(el => el.style.display = 'none');
+            document.getElementById(`${type}-input`).style.display = 'block';
+            document.getElementById("error-msg").textContent = '';
+
+            ['text', 'pdf', 'doc'].forEach(btn => {
+                document.getElementById(`btn-${btn}`).classList.remove('active');
+            });
+            document.getElementById(`btn-${type}`).classList.add('active');
+        }
+
+        document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const lang = document.getElementById('language').value;
+            const text = document.getElementById('textInput').value.trim();
+            const pdf = document.getElementById('pdfUpload').files[0];
+            const doc = document.getElementById('docUpload').files[0];
+
+            if (!selected ||
+                (selected === 'text' && text === '') ||
+                (selected === 'pdf' && !pdf) ||
+                (selected === 'doc' && !doc)) {
+                document.getElementById('error-msg').textContent = "No input provided!";
+                return;
+            }
+
+            if (!lang) {
+                document.getElementById('error-msg').textContent = "Please select a language!";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('language', lang);
+
+            if (selected === 'text') formData.append('text', text);
+            if (selected === 'pdf') formData.append('pdf', pdf);
+            if (selected === 'doc') formData.append('doc', doc);
+
+            const resultDiv = document.getElementById('server-response');
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `<div class="loader"></div>`;
+
+            try {
+                const response = await fetch('/process/', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                resultDiv.innerHTML = ``;
+
+                if (!document.getElementById('bns-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'bns-style';
+                    style.textContent = `
+                        .bns-card { 
+                            background: #1f2937;
+                            color: #e5e7eb;
+                            padding: 30px;
+                            border-radius: 16px;
+                            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+                            max-height: 400px;
+                            overflow: auto;
+                            border: 1px solid rgba(75, 85, 99, 0.3);
+                            backdrop-filter: blur(20px);
+                        }
+                        .bns-card h2 { 
+                            margin: 0 0 20px 0; 
+                            font-size: 24px; 
+                            font-weight: 700; 
+                            color: #ffffff;
+                            background: #ffffff;
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                        }
+                        .bns-list { 
+                            margin: 0; 
+                            padding-left: 0; 
+                            list-style: none;
+                        }
+                        .bns-list li { 
+                            margin-bottom: 16px;
+                            padding: 16px;
+                            background: rgba(17, 24, 39, 0.6);
+                            border-radius: 12px;
+                            border: 1px solid rgba(75, 85, 99, 0.2);
+                            transition: all 0.3s ease;
+                            position: relative;
+                            cursor: pointer;
+                        }
+                        .bns-list li:hover {
+                            transform: translateY(-2px);
+                            background: rgba(17, 24, 39, 0.8);
+                            border-color: rgba(59, 130, 246, 0.3);
+                            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+                        }
+                        .arrow { margin-left: 8px; font-size: 12px; cursor: pointer; user-select: none; }
+                        .section-info { display: none; margin-top: 6px; padding: 8px; background: #1f2937; border-radius: 6px; color: #cfd8e3; font-size: 14px; }
+                    `;
+                    document.head.appendChild(style);
+                }
+
+                function findKey(obj, key) {
+                    const seen = new WeakSet();
+                    function recurse(o) {
+                        if (!o || typeof o !== 'object') return null;
+                        if (seen.has(o)) return null;
+                        seen.add(o);
+                        if (Object.prototype.hasOwnProperty.call(o, key) && Array.isArray(o[key])) {
+                            return o[key];
+                        }
+                        for (const k in o) {
+                            const r = recurse(o[k]);
+                            if (r) return r;
+                        }
+                        return null;
+                    }
+                    return recurse(obj);
+                }
+
+                const sections = findKey(result, 'bns_converted_response');
+                const infos = findKey(result, 'section_info');
+
+                if (sections && sections.length) {
+                    const container = document.createElement('div');
+                    container.className = 'bns-card';
+                    container.innerHTML = `<h2>&nbsp;&nbsp;Relevant Acts/Sections</h2>`;
+
+                    const ul = document.createElement('ul');
+                    ul.className = 'bns-list';
+
+                    sections.forEach((sec, i) => {
+                        const li = document.createElement('li');
+                        const secText = typeof sec === 'string' ? sec : JSON.stringify(sec);
+
+                        li.innerHTML = `
+                            ${
+                                infos && infos[i] 
+                                ? `<a href="${infos[i]}" target="_blank" style="color:#60a5fa; text-decoration:underline; font-weight: 500; transition: color 0.3s ease;">${secText}</a>` 
+                                : `<span class="sec-text">${secText}</span>`
+                            }
+                        `;
+
+                        ul.appendChild(li);
+                    });
+
+                    container.appendChild(ul);
+                    resultDiv.appendChild(container);
+                } else {
+                    resultDiv.innerHTML = `<div class="bns-card"><span class="bns-empty" style="color: #9ca3af; text-align: center; padding: 40px; font-style: italic;">No relevant sections found in server response.</span></div>`;
+                    console.log('Server response (full):', result);
+                }
+            } catch (error) {
+                const resultDiv = document.getElementById('server-response');
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `<div class="bns-card"><span style="color:#f87171;">Error submitting form. Please try again.</span></div>`;
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>

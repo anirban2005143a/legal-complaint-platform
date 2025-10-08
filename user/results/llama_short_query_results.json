@@ -1,0 +1,292 @@
+[
+{
+    "query_number": 1,
+    "llm_response": [
+        "Section 20 of The Registration Act, 1908",
+        "Section 47 of The Transfer of Property Act, 1882",
+        "Section 58 of The Indian Registration Act, 1908"
+    ],
+    "bns_converted_response": [
+        "Section 20 of The Registration Act, 1908", 
+        "Section 47 of The Transfer of Property Act, 1882",
+        "Section 58 of The Indian Registration Act, 1908"
+    ]
+},
+{
+    "query_number": 2,
+    "llm_response": [
+        "Section 7 of The Hindu Marriage Act, 1955",
+        "Section 3 of The Special Marriage Act, 1954",
+        "Section 37 of The Divorce Act, 1869"
+    ],
+    "bns_converted_response": [
+        "Section 7 of The Hindu Marriage Act, 1955",
+        "Section 3 of The Special Marriage Act, 1954",
+        "Section 37 of The Divorce Act, 1869"
+    ]
+},
+{
+    "query_number": 3,
+    "llm_response": [
+        "Section 195 of The Indian Evidence Act, 1872",
+        "Section 96 of The Code of Criminal Procedure, 1973",
+        "Section 133 of The Code of Criminal Procedure, 1973",
+        "Section 151 of The Code of Criminal Procedure, 1973"
+    ],
+    "bns_converted_response": [
+        "Section 195 of The Indian Evidence Act, 1872",
+        "Section 96 of The Code of Criminal Procedure, 1973",
+        "Section 133 of The Code of Criminal Procedure, 1973",
+        "Section 151 of The Code of Criminal Procedure, 1973"
+    ]
+},
+{
+    "query_number": 4,
+    "llm_response": [
+        "Section 78 of The Indian Registration Act, 1908",
+        "Section 17 of The Stamp Act, 1958"
+    ],
+    "bns_converted_response": [
+        "Section 78 of The Indian Registration Act, 1908",
+        "Section 17 of The Stamp Act, 1958"
+    ]
+},
+{
+    "query_number": 5,
+    "llm_response": [
+        "Section 498A of The Indian Penal Code, 1860",
+        "Section 498A of The Indian Penal Code, 1860"
+    ],
+    "bns_converted_response": [
+        "Section 85 of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 85 of The Bharatiya Nyaya Sanhita, 2023"
+    ]
+},
+{
+    "query_number": 6,
+    "llm_response": [
+        "Section 138 of The Negotiable Instruments Act, 1881",
+        "Section 420 of The Indian Penal Code, 1860"
+    ],
+    "bns_converted_response": [
+        "Section 138 of The Negotiable Instruments Act, 1881",
+        "Section 318(4) of The Bharatiya Nyaya Sanhita, 2023"
+    ]
+},
+{
+    "query_number": 7,
+    "llm_response": [
+        "Section 34 of The Indian Contract Act, 1872",
+        "Section 122 of The Indian Evidence Act, 1872",
+        "Section 138 of The Negotiable Instruments Act, 1881"
+    ],
+    "bns_converted_response": [
+        "Section 34 of The Indian Contract Act, 1872",
+        "Section 122 of The Indian Evidence Act, 1872",
+        "Section 138 of The Negotiable Instruments Act, 1881"
+    ]
+},
+{
+    "query_number": 8,
+    "llm_response": [
+        "Section 170 of The Indian Succession Act, 1925",
+        "Section 12 of The Hindu Succession (Amendment) Act, 2005",
+        "Section 14 of The Hindu Succession (Amendment) Act, 2005",
+        "Section 2 of The Hindu Succession Act, 1956"
+    ],
+    "bns_converted_response": [
+        "Section 170 of The Indian Succession Act, 1925",
+        "Section 12 of The Hindu Succession (Amendment) Act, 2005",
+        "Section 14 of The Hindu Succession (Amendment) Act, 2005",
+        "Section 2 of The Hindu Succession Act, 1956"
+    ]
+},
+{
+    "query_number": 9,
+    "llm_response": [
+        "Section 498 of The Indian Penal Code, 1860",
+        "Section 498A of The Indian Penal Code, 1860",
+        "The Code of Criminal Procedure, 1973",
+        "Section 125 of The Code of Criminal Procedure, 1973",
+        "The Hindu Marriage Act, 1955",
+        "Section 12 of The Hindu Marriage Act, 1955"
+    ],
+    "bns_converted_response": [
+        "Section 84 of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 85 of The Bharatiya Nyaya Sanhita, 2023",
+        "The Code of Criminal Procedure, 1973",
+        "Section 125 of The Code of Criminal Procedure, 1973",
+        "The Hindu Marriage Act, 1955",
+        "Section 12 of The Hindu Marriage Act, 1955"
+    ]
+},
+{
+    "query_number": 10,
+    "llm_response": [
+        "Section 498A of The Indian Penal Code, 1860",
+        "Section 323 of The Indian Penal Code, 1860",
+        "Section 506 of The Indian Penal Code, 1860"
+    ],
+    "bns_converted_response": [
+        "Section 85 of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 115(2) of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 351(2)/(3) of The Bharatiya Nyaya Sanhita, 2023"
+    ]
+},
+{
+    "query_number": 11,
+    "llm_response": [
+        "Section 498A of The Indian Penal Code, 1860",
+        "Section 3 of The Dowry Prohibition Act, 1961"
+    ],
+    "bns_converted_response": [
+        "Section 85 of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 3 of The Dowry Prohibition Act, 1961"
+    ]
+},
+{
+    "query_number": 12,
+    "llm_response": [
+        "Section 32 of The Indian Divorce Act, 1869",
+        "Section 39 of The Indian Divorce Act, 1869",
+        "Section 44 of The Indian Divorce Act, 1869",
+        "Section 48 of The Indian Divorce Act, 1869",
+        "Section 112 of The Indian Evidence Act, 1872",
+        "Section 125 of The Indian Evidence Act, 1872"
+    ],
+    "bns_converted_response": [
+        "Section 32 of The Indian Divorce Act, 1869",
+        "Section 39 of The Indian Divorce Act, 1869",
+        "Section 44 of The Indian Divorce Act, 1869",
+        "Section 48 of The Indian Divorce Act, 1869",
+        "Section 112 of The Indian Evidence Act, 1872",
+        "Section 125 of The Indian Evidence Act, 1872"
+    ]
+},
+{
+    "query_number": 13,
+    "llm_response": [
+        "Section 30 of The Indian Registration Act, 1908",
+        "Section 79 of The Indian Registration Act, 1908",
+        "Section 135 of The Indian Registration Act, 1908",
+        "Section 29 of The Evidence Act, 1872",
+        "Section 45 of The Evidence Act, 1872",
+        "Section 63 of The Indian Succession Act, 1925"
+    ],
+    "bns_converted_response": [
+        "Section 30 of The Indian Registration Act, 1908",
+        "Section 79 of The Indian Registration Act, 1908",
+        "Section 135 of The Indian Registration Act, 1908",
+        "Section 29 of The Evidence Act, 1872",
+        "Section 45 of The Evidence Act, 1872",
+        "Section 63 of The Indian Succession Act, 1925"
+    ]
+},
+{
+    "query_number": 14,
+    "llm_response": [
+        "Section 2 of The Hindu Succession (Amendment) Act, 2005",
+        "Section 44 of The Specific Relief Act, 1963",
+        "Section 100 of The Code of Civil Procedure, 1908",
+        "Section 144 of The Transfer of Property Act, 1882",
+        "Section 15 of The Hindu Marriage Act, 1955"
+    ],
+    "bns_converted_response": [
+        "Section 2 of The Hindu Succession (Amendment) Act, 2005",
+        "Section 44 of The Specific Relief Act, 1963",
+        "Section 100 of The Code of Civil Procedure, 1908",
+        "Section 144 of The Transfer of Property Act, 1882",
+        "Section 15 of The Hindu Marriage Act, 1955"
+    ]
+},
+{
+    "query_number": 15,
+    "llm_response": [
+        "Section 6 of The Hindu Succession Act, 1956",
+        "Section 14 of The Hindu Succession Act, 1956",
+        "Section 23 of The Hindu Succession Act, 1956",
+        "Section 10 of The Indian Succession Act, 1925"
+    ],
+    "bns_converted_response": [
+        "Section 6 of The Hindu Succession Act, 1956",
+        "Section 14 of The Hindu Succession Act, 1956",
+        "Section 23 of The Hindu Succession Act, 1956",
+        "Section 10 of The Indian Succession Act, 1925"
+    ]
+},
+{
+    "query_number": 16,
+    "llm_response": [
+        "Section 63 of The Agriculture Income (Exemption from Taxation) Act, 1956",
+        "Section 43B of The Income-tax Act, 1961",
+        "Section 2(1)(i) of The Karnataka Land Reforms Act, 1974",
+        "Section 65 of The Karnataka Land Reforms (Amendment) Act, 2000",
+        "Section 66 of The Karnataka Land Reforms (Amendment) Act, 2000",
+        "Section 9 of The Companies Act, 2013"
+    ],
+    "bns_converted_response": [
+        "Section 63 of The Agriculture Income (Exemption from Taxation) Act, 1956",
+        "Section 43B of The Income-tax Act, 1961",
+        "Section 2(1)(i) of The Karnataka Land Reforms Act, 1974",
+        "Section 65 of The Karnataka Land Reforms (Amendment) Act, 2000",
+        "Section 66 of The Karnataka Land Reforms (Amendment) Act, 2000",
+        "Section 9 of The Companies Act, 2013"
+    ]
+},
+{
+    "query_number": 17,
+    "llm_response": [
+        "Section 13 of The Hindu Marriage Act, 1955",
+        "Section 23 of The Hindu Marriage Act, 1955",
+        "Section 25 of The Hindu Marriage Act, 1955",
+        "Section 127 of The Indian Evidence Act, 1872"
+    ],
+    "bns_converted_response": [
+        "Section 13 of The Hindu Marriage Act, 1955",
+        "Section 23 of The Hindu Marriage Act, 1955",
+        "Section 25 of The Hindu Marriage Act, 1955",
+        "Section 127 of The Indian Evidence Act, 1872"
+    ]
+},
+{
+    "query_number": 18,
+    "llm_response": [
+        "Section 498A of The Indian Penal Code, 1860",
+        "Section 3(1)(i) of The Dowry Prohibition Act, 1961",
+        "Section 498A of The Code of Criminal Procedure, 1973"
+    ],
+    "bns_converted_response": [
+        "Section 85 of The Bharatiya Nyaya Sanhita, 2023",
+        "Section 3(1)(i) of The Dowry Prohibition Act, 1961",
+        "Section 498A of The Code of Criminal Procedure, 1973"
+    ]
+},
+{
+    "query_number": 19,
+    "llm_response": [
+        "Section 42 of The Indian Easements Act, 1882",
+        "Section 27 of The Transfer of Property Act, 1882",
+        "Section 5 of The Maharashtra Ownership Flats (Regulation of Promoter's Responsibility) Act, 2017"
+    ],
+    "bns_converted_response": [
+        "Section 42 of The Indian Easements Act, 1882",
+        "Section 27 of The Transfer of Property Act, 1882",
+        "Section 5 of The Maharashtra Ownership Flats (Regulation of Promoter's Responsibility) Act, 2017"
+    ]
+},
+{
+    "query_number": 20,
+    "llm_response": [
+        "Section 104 of The Indian Evidence Act, 1872",
+        "Section 115 of The Civil Procedure Code, 1908",
+        "Section 34 of The Arbitration and Conciliation Act, 1996",
+        "Section 37 of The Arbitration and Conciliation Act, 1996"
+    ],
+    "bns_converted_response": [
+        "Section 104 of The Indian Evidence Act, 1872",
+        "Section 115 of The Civil Procedure Code, 1908",
+        "Section 34 of The Arbitration and Conciliation Act, 1996",
+        "Section 37 of The Arbitration and Conciliation Act, 1996"
+    ]
+}
+]
