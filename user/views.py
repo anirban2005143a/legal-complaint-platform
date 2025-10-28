@@ -3,8 +3,9 @@ from dotenv import load_dotenv
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-# from user.tasks import query_huggingface
 import json
+from PyPDF2 import PdfReader
+from docx import Document
 # import google.generativeai as genai
 # from transformers import AutoModelForCausalLM, AutoTokenizer
 # from peft import PeftModel
@@ -337,11 +338,6 @@ def upload_complaint(request):
 def process_complaint(request):
     if request.method == 'POST':
         try:
-            language = request.POST.get('language', '').strip()
-            
-            if not language:
-                return JsonResponse({"error": "No language selected"}, status=400)
-            
             user_query = ""
             
             if 'text' in request.POST:
@@ -349,12 +345,38 @@ def process_complaint(request):
             
             elif 'pdf' in request.FILES:
                 pdf_file = request.FILES['pdf']
-                user_query = f"PDF file uploaded: {pdf_file.name}"
-            
+                if pdf_file.size > 0:
+                    try:
+                        reader = PdfReader(pdf_file)
+                        full_text = ""
+                        for page in reader.pages:
+                            full_text += page.extract_text()
+
+                        user_query = full_text.strip()
+                        
+                    except Exception as e:
+                        user_query = f"Error processing PDF: {e}"
+                else:
+                    print("PDF has empty content")
+                    user_query = f"PDF file uploaded: {pdf_file.name}"
+                            
             elif 'doc' in request.FILES:
                 doc_file = request.FILES['doc']
-                user_query = f"DOC file uploaded: {doc_file.name}"
-            
+                if doc_file.size > 0:
+                    try:
+                        document = Document(doc_file)
+                        full_text = ""
+                        
+                        for para in document.paragraphs:
+                            full_text += para.text + "\n"
+
+                        user_query = full_text.strip()
+
+                    except Exception as e:
+                        user_query = f"Error processing DOCX file: {e}"
+                else:
+                    user_query = "Error: Uploaded DOC file is empty."
+                            
             if not user_query:
                 return JsonResponse({"error": "No query provided"}, status=400)
 
@@ -516,7 +538,6 @@ def process_complaint(request):
 
             return JsonResponse({
                 "status": "done",
-                "language": language,
                 "query": user_query,
                 "llm_response": parsed_response,
                 "bns_converted_response": bns_converted,
