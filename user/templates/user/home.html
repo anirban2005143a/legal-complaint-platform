@@ -57,22 +57,102 @@
         gap: 15px;
         margin: 18px 5px;
     }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(17, 24, 39, 0.8);
+      border-bottom: 3px solid #1b2e3aff;
+    }
+
+    .emblem {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .emblem img {
+      height: 70px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .emblem-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .emblem-text h2 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 650;
+      color: #ecf0f1;
+      line-height: 1.3;
+    }
+
+    .funded-by {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #bdc3c7;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .divider {
+      color: #3498db;
+      font-weight: 300;
+    }
+
+    .title {
+      text-align: right;
+    }
+
+    .title h1 {
+      margin: 0.25rem 0;
+      font-size: 1.8rem;
+      color: #ecf0f1;
+      font-weight: 700;
+      line-height: 1.2;
+    }
   </style>
   <body>
     <div class="header">
       <div class="emblem">
-        <img
-          src="http://photos.wikimapia.org/p/00/00/35/85/92_big.jpg"
-          alt="Govt Emblem"
-        />
-        <h1>IIT Kharagpur</h1>
+        <div class="logo-container">
+          <img
+            src="https://www.ihubiitmandi.in/wp-content/uploads/2024/07/iHub-logo-New-2.png"
+            alt="iHub IIT Mandi Logo"
+            class="logo"
+          />
+          {% comment %} <img
+            src="https://iitmandi.ac.in/images/logo_hires.jpg"
+            alt="IIT Mandi Logo"
+            class="logo"
+          /> {% endcomment %}
+        </div>
+        <div class="emblem-text">
+          <h2>Large Language Models for Legal Assistance</h2>
+          <div class="meta-info">
+            <p class="funded-by">
+              <span class="divider">|</span>
+              Funded by IIT Mandi iHub and HCI Foundation
+            </p>
+            <p class="funded-by">
+              <span class="divider">|</span>
+              Developed by IIT Kharagpur
+            </p>
+          </div>
+        </div>
       </div>
       <div class="title">
         <h1>Legal Complaint Analyzer</h1>
         <h1>कानूनी शिकायत विश्लेषक</h1>
       </div>
     </div>
-
     <!-- Initial single column layout -->
     <div class="container" id="initial-container">
       <form id="uploadForm">
