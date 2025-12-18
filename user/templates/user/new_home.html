@@ -369,9 +369,17 @@
                     console.log('Server response (full):', result);
                 }
             } catch (error) {
+                console.error("error from frontend", error.error);
                 const resultDiv = document.getElementById('server-response');
-                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `<div class="bns-card"><span style="color:#f87171;text-align:center">
+                                  ${
+                                    error.error ||
+                                    error.message ||
+                                    "Error submitting form. Please try again."
+                                  }
+                                  </span></div>`;
                 resultDiv.innerHTML = `<div class="bns-card"><span style="color:#f87171;">Error submitting form. Please try again.</span></div>`;
+                resultDiv.style.display = 'block';
                 console.error(error);
             }
         });

@@ -9,53 +9,53 @@
   </head>
   <style>
     .bns-card .convert-btn {
-        background-color: #0f172a;
-        color: #38bdf8;        
-        border: 1px solid #1e293b;
-        padding: 8px 16px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 22px;  
-        transition: all 0.25s ease;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      background-color: #0f172a;
+      color: #38bdf8;
+      border: 1px solid #1e293b;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 22px;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .bns-card .convert-btn:hover {
-        background-color: #1e293b; 
-        color: #60a5fa;
-        transform: translateY(-1px);
+      background-color: #1e293b;
+      color: #60a5fa;
+      transform: translateY(-1px);
     }
 
     .file-name {
-        color: #9ca3af;
-        font-size: 14px;
-        margin-top: 6px;
+      color: #9ca3af;
+      font-size: 14px;
+      margin-top: 6px;
     }
 
     .section {
-        margin-bottom: 4px;
+      margin-bottom: 4px;
     }
 
     .section label {
-        display: block;
-        margin-bottom: 4px;
-        font-weight: 500;
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 500;
     }
 
     .input-section {
-        font-size: 18px;
-        display: none;
-        margin-top: 10px;
-        font-weight: 600;
+      font-size: 18px;
+      display: none;
+      margin-top: 10px;
+      font-weight: 600;
     }
 
     .nav-btns {
-        display: flex;
-        justify-content: left;
-        gap: 15px;
-        margin: 18px 5px;
+      display: flex;
+      justify-content: left;
+      gap: 15px;
+      margin: 18px 5px;
     }
 
     .header {
@@ -128,11 +128,13 @@
             alt="iHub IIT Mandi Logo"
             class="logo"
           />
-          {% comment %} <img
+          {% comment %}
+          <img
             src="https://iitmandi.ac.in/images/logo_hires.jpg"
             alt="IIT Mandi Logo"
             class="logo"
-          /> {% endcomment %}
+          />
+          {% endcomment %}
         </div>
         <div class="emblem-text">
           <h2>Large Language Models for Legal Assistance</h2>
@@ -157,7 +159,7 @@
     <div class="container" id="initial-container">
       <form id="uploadForm">
         <div class="section">
-            <label for="inputMethod">Choose Input Method:</label>
+          <label for="inputMethod">Choose Input Method:</label>
         </div>
 
         <div class="nav-btns">
@@ -201,9 +203,9 @@
     <div class="two-column hidden" id="two-column-container">
       <div class="form-section">
         <form id="uploadForm2">
-            <div class="section">
-                <label for="inputMethod">Input Method:</label>
-            </div>
+          <div class="section">
+            <label for="inputMethod">Input Method:</label>
+          </div>
 
           <div class="nav-btns">
             <button type="button" onclick="showInput2('text')" id="btn-text2">
@@ -290,20 +292,20 @@
           showInput2("text");
         } else if (selected === "pdf") {
           showInput2("pdf");
-          const pdfFile = document.getElementById('pdfUpload').files[0];
-            if (pdfFile) {
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(pdfFile);
-                document.getElementById('pdfUpload2').files = dataTransfer.files;
-            }
+          const pdfFile = document.getElementById("pdfUpload").files[0];
+          if (pdfFile) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(pdfFile);
+            document.getElementById("pdfUpload2").files = dataTransfer.files;
+          }
         } else if (selected === "doc") {
           showInput2("doc");
-          const docFile = document.getElementById('docUpload').files[0];
-            if (docFile) {
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(docFile);
-                document.getElementById('docUpload2').files = dataTransfer.files;
-            }
+          const docFile = document.getElementById("docUpload").files[0];
+          if (docFile) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(docFile);
+            document.getElementById("docUpload2").files = dataTransfer.files;
+          }
         }
       }
 
@@ -314,7 +316,13 @@
             body: formData,
           });
           const result = await response.json();
-          console.log(result)
+          console.log("result" ,  result);
+
+          if (result.status && result.status != 200) {
+            // Throw to go into catch
+            throw result;
+          }
+
           const resultDiv = document.getElementById("server-response");
           resultDiv.innerHTML = "";
 
@@ -386,9 +394,15 @@
             console.log("Server response (full):", result);
           }
         } catch (error) {
+          console.error("error from frontend", error);
           const resultDiv = document.getElementById("server-response");
-          resultDiv.innerHTML = `<div class="bns-card"><span style="color:#f87171;">Error submitting form. Please try again.</span></div>`;
-          console.error(error);
+          resultDiv.innerHTML = `<div class="bns-card" style="text-align:center;"><span style="color:#f87171;">
+                                  ${
+                                    error.error ||
+                                    error.message ||
+                                    "Error submitting form. Please try again."
+                                  }
+                                  </span></div>`;
         }
       }
 
@@ -411,7 +425,6 @@
               "No input provided!";
             return;
           }
-
 
           const formData = new FormData();
 
@@ -459,7 +472,6 @@
               "No input provided!";
             return;
           }
-
 
           const formData = new FormData();
 

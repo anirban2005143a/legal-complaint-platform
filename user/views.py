@@ -12,13 +12,18 @@ from docx import Document
 
 # Env variables
 load_dotenv()
+
+# secret keys
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GOOGLE_STUDIO_API_KEY = os.getenv("GOOGLE_STUDIO_API_KEY")
 GEMINI_API_KEY=os.getenv("GEMINI_PRO_API_KEY")
 HF_API_TOKEN = os.getenv("HF_API_TOKEN")
-HF_HEADERS = {"Authorization": f"Bearer {HF_API_TOKEN}"}
-HF_API_URL = os.getenv("HF_API_URL")
 HF_API_KEY = os.getenv("HF_API_KEY")
+RUNPOD_API_KEY = os.getenv("RUNPOD_API_KEY")
+
+# urls
+HF_API_URL = os.getenv("HF_API_URL")
+RUNPOD_API_URL = os.getenv("RUNPOD_API_URL")
 
 
 ipc_to_bns = {}
@@ -26,6 +31,49 @@ section_info = {}
 
 def home(request):
     return render(request, 'user/home.html')
+
+def query_runpod(prompt):
+    print("function calling ")
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {RUNPOD_API_KEY}"
+    }
+
+    data = {
+        "input": {
+            "inputs" : prompt
+        }
+    }
+
+    print(headers , RUNPOD_API_URL)
+
+    try:
+        response = requests.post(
+            RUNPOD_API_URL,
+            headers=headers,
+            json=data,
+        )
+
+        print(response)
+    
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        
+        return {"success": True, "output": response.json()['output']['output']}
+
+    except requests.exceptions.HTTPError as http_err:
+        raise Exception(f"HTTP error occurred: {http_err}")
+
+    except requests.exceptions.ConnectionError as conn_err:
+        raise Exception(f"Connection error occurred: {conn_err}")
+
+    except requests.exceptions.Timeout as timeout_err:
+        raise Exception(f"Timeout error occurred: {timeout_err}")
+
+    except requests.exceptions.RequestException as req_err:
+        raise Exception(f"An error occurred: {req_err}")
+
+    except Exception as e:
+        raise Exception(f"Unexpected error: {e}")
 
 def query_huggingface(prompt, retries=3, timeout=200):
     headers = {
@@ -327,7 +375,7 @@ def upload_complaint(request):
                 f.flush()
                 os.fsync(f.fileno())
         
-        return JsonResponse({"status": "done", "results": results})
+        return JsonResponse({"status": 200, "results": results})
 
     return JsonResponse({"error": "Invalid method"}, status=405)
 
@@ -400,6 +448,7 @@ def process_complaint(request):
             Query:
             {{user_query}}
             """.strip()
+
             # structured_prompt_template = """
             # READ ALL LINES CAREFULLY BEFORE PRODUCING THE OUTPUT.
             # ** refers to important details
@@ -475,9 +524,15 @@ def process_complaint(request):
 
             # bns_converted = parsed_response
 
-            """this is my code Anirban Das from IIT ISM"""
+    
+            # ---------------------------------------------
+            # BELOW IS THE CODE FROM ANIRBAN DAS FROM IIT ISM
+            # THIS CODE IS FOR THE API CALLING TO THE MODEL DEPLOYED ON 
+            # RUNPOD SERVERLESS ENDPOINT
+            # ----------------------------------------------
+            
             # Extract the output string from the dictionary
-            raw_response = query_huggingface(prompt)['output']
+            raw_response = query_runpod(prompt)['output']
             # print(raw_response)
 
             # If somehow raw_response is not a string, convert it
@@ -537,7 +592,7 @@ def process_complaint(request):
                     sections_urls.append("https://indiankanoon.org/")  # dummy link
 
             return JsonResponse({
-                "status": "done",
+                "status": 200,
                 "query": user_query,
                 "llm_response": parsed_response,
                 "bns_converted_response": bns_converted,
@@ -545,7 +600,8 @@ def process_complaint(request):
             }, json_dumps_params={'ensure_ascii': False, 'indent': 4})
 
 
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
+        except Exception as e: 
+            print({"error": str(e)})
+            return JsonResponse({"error": str(e) , "status" : 500}, status=500)
 
-    return JsonResponse({"error": "Invalid method"}, status=405)
+    return JsonResponse({"error": "Invalid method" , "status" : 500 }, status=405)
